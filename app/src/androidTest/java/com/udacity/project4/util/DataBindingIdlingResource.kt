@@ -88,7 +88,7 @@ class DataBindingIdlingResource : IdlingResource {
 
         return bindings + childrenBindings
     }
-
+}
 
     private fun View.getBinding(): ViewDataBinding? = DataBindingUtil.getBinding(this)
 
@@ -102,7 +102,7 @@ class DataBindingIdlingResource : IdlingResource {
             this.activity = it
         }
     }
-}
+
 /**
  * Sets the fragment from a [FragmentScenario] to be used from [DataBindingIdlingResource].
  */

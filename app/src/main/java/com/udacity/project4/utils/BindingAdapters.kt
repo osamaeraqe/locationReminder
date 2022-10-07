@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.udacity.project4.base.BaseRecyclerViewAdapter
 
 
-object BindingAdapters {
+object  BindingAdapters {
 
     /**
      * Use binding adapter to set the recycler view data using livedata object
