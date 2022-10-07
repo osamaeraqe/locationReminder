@@ -51,7 +51,7 @@ class SaveReminderFragment : BaseFragment() {
         binding.viewModel = _viewModel
 
 
-
+        geofencingClient = LocationServices.getGeofencingClient(requireContext())
         _viewModel.selectedPOI.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it.name, Toast.LENGTH_LONG).show()
 
