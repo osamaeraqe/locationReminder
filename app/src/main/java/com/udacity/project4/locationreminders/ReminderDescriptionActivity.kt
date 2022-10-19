@@ -37,6 +37,9 @@ class ReminderDescriptionActivity : AppCompatActivity() {
 
         binding.reminderDataItem = reminderData
         binding.lifecycleOwner = this
+        binding.endButton.setOnClickListener {
+         this.finish()
+        }
 
     }
 }

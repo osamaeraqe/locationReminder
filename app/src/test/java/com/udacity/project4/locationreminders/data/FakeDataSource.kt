@@ -4,51 +4,61 @@ import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.dto.Result
 
 //Use FakeDataSource that acts as a test double to the LocalDataSource
-class FakeDataSource (var remindersList: MutableList<ReminderDTO>? = mutableListOf()): ReminderDataSource {
+class FakeDataSource(): ReminderDataSource {
 
     private var shouldReturnError = false
-
+    var remindersList: MutableList<ReminderDTO> = mutableListOf()
 
     fun setReturnError(value: Boolean) {
         shouldReturnError = value
     }
 
     override suspend fun getReminders(): Result<List<ReminderDTO>> {
-        if (shouldReturnError) {
-            return Result.Error(
-                "Error getting reminders"
-            )
+        try {
+            if (shouldReturnError) {
+                return Result.Error(
+                    "Error : DataBase"
+                )
+            }
+           return Result.Success(remindersList.toList())
         }
-        remindersList?.let { return Result.Success(it) }
-        return Result.Error("Reminders not found")
+        catch (ex : Exception){
+          return  Result.Error(ex.localizedMessage)
+        }
+
     }
 
     override suspend fun saveReminder(reminder: ReminderDTO) {
-        remindersList?.add(reminder)
+        remindersList.add(reminder)
     }
 
     override suspend fun getReminder(id: String): Result<ReminderDTO> {
-        val reminder = remindersList?.find { reminderDTO ->
-            reminderDTO.id == id
-        }
-
-        return when {
-            shouldReturnError -> {
-                Result.Error("Reminder not found!")
+        try {
+            val reminder = remindersList.find { reminderDTO ->
+                reminderDTO.id == id
             }
 
-            reminder != null -> {
-                Result.Success(reminder)
-            }
-            else -> {
-                Result.Error("Reminder not found!")
+            return when {
+                shouldReturnError -> {
+                    Result.Error("Error : Database ")
+                }
+
+                reminder != null -> {
+                    Result.Success(reminder)
+                }
+                else -> {
+                    Result.Error("Reminder not found!")
+                }
             }
         }
+        catch (ex:Exception){return  Result.Error(ex.localizedMessage)}
     }
 
     override suspend fun deleteAllReminders() {
-        remindersList?.clear()
+        remindersList.clear()
     }
-
+    fun clearalldata(){
+        remindersList.clear()
+    }
 
 }

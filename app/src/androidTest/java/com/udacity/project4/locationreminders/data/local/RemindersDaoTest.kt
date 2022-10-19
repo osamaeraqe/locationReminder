@@ -25,9 +25,6 @@ import org.junit.Test
 @SmallTest
 class RemindersDaoTest {
 
-
-
-
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
