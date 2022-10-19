@@ -73,15 +73,10 @@ class RemindersListViewModelTest {
 
     @Test
     fun loadReminders_updateSnackBarValue() {
-        mainCoroutineRule.pauseDispatcher()
-
         remindersRepository.setReturnError(true)
-
         viewModel.loadReminders()
-
-        mainCoroutineRule.resumeDispatcher()
-
-        assertThat(viewModel.showSnackBar.getOrAwaitValue()).isEqualTo("Error getting reminders")
+        assertThat(viewModel.showSnackBar.getOrAwaitValue()).isEqualTo("Error : DataBase")
+        remindersRepository.setReturnError(false)
     }
 
 }
